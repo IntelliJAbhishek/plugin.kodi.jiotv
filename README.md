@@ -24,7 +24,7 @@ Kind request to users - please check jiotv mobile addon before raising any issue
 
 JioTV has recently moved many channels from free access to a subscription-based model on the official JioTV mobile app.
 
-This Kodi addon supports streaming free channels only for those without a JioTV subscription. Premium/paid channels are also supported if you have a valid JioTV subscription (such as the JioTV OTT pass, which costs around Rs 200 and is valid for 28 days).
+This Kodi addon supports streaming free channels only for those without a JioTV subscription. Premium/paid channels are also supported if you have a valid JioTV subscription (such as the Jiotv Pro pack at Rs 55 valid for 30 days or the JioTV OTT pass, which costs around Rs 200 and is valid for 28 days).
 
 As a result:
 
