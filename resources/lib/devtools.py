@@ -10,7 +10,6 @@ import io
 import json
 import time
 import socket
-import cgi
 import threading
 from http.server import BaseHTTPRequestHandler
 from socketserver import ThreadingTCPServer
