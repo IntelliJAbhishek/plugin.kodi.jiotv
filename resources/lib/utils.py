@@ -1095,10 +1095,32 @@ def _setup(m3uPath, epgUrl):
     pDialog = DialogProgress()
     pDialog.create("PVR Setup in progress")
     ADDON_ID = "pvr.iptvsimple"
-    addon = Addon(ADDON_ID)
+
+    # pvr.iptvsimple ships installed-but-disabled by default on many Kodi
+    # builds, so xbmcaddon.Addon() raises "Unknown addon id" until it's
+    # explicitly enabled at least once.
+    kodi_rpc("Addons.SetAddonEnabled", {"addonid": ADDON_ID, "enabled": True})
+    addon = None
+    for _ in range(10):
+        try:
+            addon = Addon(ADDON_ID)
+            break
+        except RuntimeError:
+            monitor.waitForAbort(0.5)
+    if addon is None:
+        pDialog.close()
+        Dialog().ok(
+            "Error",
+            "IPTV Simple Client (pvr.iptvsimple) is not installed. Please install and enable it from the Kodi Add-on Browser, then try PVR Setup again.",
+        )
+        return
     ADDON_NAME = addon.getAddonInfo("name")
     addon_path = xbmcvfs.translatePath(addon.getAddonInfo("profile"))
     instance_filepath = os.path.join(addon_path, "instance-settings-91.xml")
+
+    # On a fresh install, pvr.iptvsimple may not have created its addon_data
+    # folder yet since we're disabling it again immediately below.
+    xbmcvfs.mkdirs(addon_path)
 
     kodi_rpc("Addons.SetAddonEnabled", {"addonid": ADDON_ID, "enabled": False})
     pDialog.update(10)

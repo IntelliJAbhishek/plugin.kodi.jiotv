@@ -1,120 +1,96 @@
-[- 2.3.18 -]
- [added] Added Free channels only which is available in Zee5
-[- 2.3.17 -]
-[added] removed Zee but fixed all channels of jio. Every channel will work now.
-[- 2.3.16 -]
-[added] improved zee channels and removed proxy way for faster. No crash
-[- 2.3.15 -]
-[added] created a proxy to fetch cookie from zee and added zee channels
-[- 2.3.14-]
-[added] added sony channels, new headers and urls
-[- 2.3.13-]
-[updated] added epg.xml.gz link
-[- 2.3.12-]
-[updated] Useragent to LYF device in utils - thanks to GitHub users in my repo
-[- 2.3.9 -]
-[added] Revamped settings.xml and added strings.po
+v1.4.1
+- Fixed: "Setup Simple IPTV PVR" crashed with "Unknown addon id 'pvr.iptvsimple'" because pvr.iptvsimple ships installed-but-disabled by default on Kodi 22 and the setup code assumed it was already enabled. Now enables it automatically (with a short retry) before configuring it, ensures its addon_data folder exists before reading from it (needed on a genuinely fresh enable), and shows a clear message instead of crashing if it truly isn't installed.
 
-[- 2.3.8 -]
-[added] support to play mpd streams
+v1.4.0
+- Fixed: Installing the plugin registered a second, redundant "JioTV Direct Updates" repository entry in Kodi, separate from the dedicated JioTV Direct Repository addon, because the plugin's own addon.xml embedded an xbmc.addon.repository extension. Removed it; the dedicated repository addon remains the sole update source.
 
-[- 2.3.7 -]
-[added] fix for runtime error in channel list
+v1.3.9
+- Fixed: Developer Tools dev server crashed on startup on Kodi 22 / Python 3.13+ builds with "No module named 'cgi'" by removing an unused import of the removed cgi module.
 
-[- 2.3.6 -]
-[added] language filter
+v1.3.8
+- Updated: Repository and update URLs now point to the maintained fork (intellijabhishek.github.io/plugin.kodi.jiotv) instead of the original repository.
 
-[- 2.3.5 -]
-[added] handle playback exceptions
-[added] remove unused code
-[added] save mobile no automatically on login
-[added] added request dependency for lower version
-[added] revert inputstreamhelper dependency version
+v1.3.7
+- Fixed: Addon failed to load entirely on Kodi 22 / Python 3.12 builds (e.g. LG webOS TVs) with "No module named 'distutils'" by removing the dependency on the removed distutils.version.LooseVersion.
 
-[- 2.3.4 -]
-[added] AAC multi-audio fix (3rd Jun 2023)
-[added] Genres selection in Settings with Languages
-[added] EPG Source URL editable in Settings
-[added] Settings sections rearranged, removed 'Welcome-donate' popup.
+v1.3.6
+- Fixed: Resolved channel freeze/stalling issue after 2 minutes on Widevine (MPD) streams by clearing persistent session cookies before fetching fresh manifest/cookie tokens.
 
-[- 2.3.3 -]
-[added] updated epg url
-[added] set epg cache to false
-[added] updset useInputstreamAdaptiveforHls to true
+v1.3.5
+- Fixed: Resolved playback freeze issues on slow hotspot / mobile data networks by using robust main-thread GET requests with increased timeouts for CDN session cookie pre-fetching.
 
-[- 2.3.2 -]
-[added] generate playlist is off by default
+v1.3.4
+- Fixed: Resolved stream timeout and playback interruption after a minute on Widevine DRM (MPD) channels by restoring CDN session cookie pre-fetching.
 
-[- 2.3.1 -]
-[added] caching of reponses
+v1.3.3
+- Fixed: Playback failure (HTTP 450 error) on some platforms using newer InputStream Adaptive versions by removing deprecated URL pipe headers and refactoring manifest/stream properties.
 
-[- 2.3.0 -]
-[added] more extra channels
-[added] inputstream adaptive as a dependency 
+v1.3.2
+- Fixed: Resolved playback failures and 401/403 errors on Widevine DRM (MPD) channels (such as Sony Network channels) by bypassing CDN User-Agent blocking.
 
-[- 2.2.0 -]
-[fixed] Bugs related to playback
-[added] Login with OTP
+v1.3.1
+- Fixed: Resolved 'urlencode' scope shadowing playback error preventing standard live channels from playing.
 
-[- 2.1.0 -]
+v1.3.0
+- Added: Full Extra Channels integration supporting M3U, JSON, and XML playlists with HLS/DASH manifest loading, piped headers, and custom ClearKey DRM.
+- Added: VFS-compliant template export/import system enabling users to export, customize, and reload playlists absolutely.
+- Added: "View Add-on Readme & Guides" scrollable native textviewer inside settings under Developer Tools.
+- Added: Segmented documentation (features.md, FAQs.md, best_practices.md) in mds/ with linked index in main README.md.
+- Fixed: Auto-mapping legacy com.clearkey.alpha DRM type to Kodi-standard org.w3.clearkey for custom streams.
+- Fixed: Removed redundant test and example M3U files and cleaned up default template with Red Bull TV and Big Buck Bunny DASH.
+- Updated: FAQs resolving Issue #19 (stream source drops for DTamil/local channels) and Issue #20 (Vijay TV/Vijay Takkar subscription message limits, and buffering on static "Best" quality due to CDN throttling).
 
-[added] Kodi Matrix support
-[added] Star channels support
+v1.2.5
+- Fixed: Resolved startup race condition causing `Unknown addon id` popups.
+- Improved: Added startup resiliency loop to ensure services wait for addon registration.
+- Improved: Hardened addon initialization with explicit ID references.
 
-[- 2.0.14 -]
+v1.2.4
+- Added: Background Token Refresh (Indefinite Login) mechanism to maintain active sessions.
+- Added: "Test Session Refresh" utility in Developer Tools for manual verification.
+- Improved: Captures and persists `refreshToken` for secure session renewal.
+- Added: User setting to toggle background refresh behavior in Account settings.
 
-[added] Featured Content
+v1.2.3
+- Optimized: OTP login validity set to 10 days to align with Jio's actual server-side token expiration.
+- Added: Automatic re-authentication flow (addon now proactively triggers the login dialog upon detecting 419 Session Expired or 401 errors).
+- Improved: Added debugging logs for login responses to help troubleshoot future authentication changes.
 
-[- 2.0.13 -]
+v1.2.2
+- Fixed: Resolved `cannot import name 'translatePath' from 'xbmc'` crashing the hotspot network patch and playlist generation on Kodi 19+ (Matrix/Nexus/Omega).
+- Added: New `Copy kodi.log to Folder` utility located in `Settings` -> `Developer Tools` to easily export and share Kodi error logs.
+- Improved: Added instructions in the README on how to extract logs to aid in bug reporting.
 
-[added] Web login
+v1.2.1
+- Added: Support for 29+ Star/Nat Geo/Disney Network channels via new API endpoint hybrid unification
+- Fixed: Resolved `Languages` and `Genres` menus failing to load due to invisible JSON payload BOM crashes
+- Improved: Extensive FAQ segment implemented into documentation for troubleshooting and capability explanations
 
-[- 2.0.0 -]
+v1.2.0
+- Added: Global Network Hotspot Fix (Bypasses Android IPv6 broken routes via advancedsettings for seamless hotspot streaming)
+- Fixed: VOD Catchup and Live TV intermittent freezing and connectivity errors
+- Improved: Persistent non-blocking background connections (TLS pooling) for dramatically faster start times and fluid Kodi UI
+- Fixed: EPG metadata and updated source to a more stable structure
+- Fix: Included missing UI string translations, PVR integration updates, and devtools.
 
-[fixed] All major issues related to playback almost solved
-[added] Categorized by Language 
-[added] Filter channels by specific language in genre. (from settings)
+v1.1.5
+- Added: Favourite management features (Backup, Restore, Share, Restore-Shared)
+- Fixed: EPG data source (Updated to daily maintained source and enabled manual override in settings)
+- Improved: Backup path for account settings to persist even upon addon removal and reinstallation
 
-[- 1.0.8-2 -]
+v1.1.4
+- Channel Fixes & Core Stability
 
-[fixed] jio server issue (minor)
+v1.1.3
+- Added: Self-updating repository support (automatic updates for zip installations)
+- Fixed: VOD playback stability (addressed 400 and 403 errors)
+- Fixed: "context object" and "AttributeError" in menus
+- Fixed: Channel listing crashes (Graceful handling of missing EPG data)
+- Fixed: "ref() got unexpected keyword argument" in catchup menus
+- Improved: API request encoding and User-Agent for VOD streams
+- Improved: Default resolution settings for HD channels (1080p)
 
-[- 1.0.8 -]
-
-[added] Star sports channels are working now #3 (major)
-[added] Catchup support for upto 7 days of shows (major)
-[added] categories icons (minor)
-
-[- 1.0.7 -]
-
-[added] Proxy service to improve quality of channels (major)
-
-[- 1.0.6 -]
-
-[added] Changed whole code base to kodi friendly and improved perfomace (major)
-[fixed] Star channels were not working (minor)
-
-[- 1.0.5 -]
-
-[added] Improved performace by removing non-sense code (minor)
-[fixed] PVR setup setting bugs (minor)
-
-[- 1.0.4 -]
-
-[fixed] PVR setup setting (minor)
-
-[- 1.0.3 -]
-
-Initial public
-
-[- 1.0.2 -]
-
-Initial public
-
-[- 1.0.1 -]
-
-Initial public
-
-[- 1.0.0 -]
-
-Initial development
+v1.1.2
+- Fixed "context has no attribute: add_item" error in menus
+- Added: Safety Shield (Auto Backup & Restore for account settings).
+- Fixed: Addon update failures on Windows (Faster service shutdown).
