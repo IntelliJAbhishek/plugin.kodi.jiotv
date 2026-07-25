@@ -60,7 +60,7 @@ The documentation has been divided into focused guides to make it easier to read
 2. **Settings**: Go to **Settings** (gear icon) > **File Manager**.
 3. **Add Source**:
    - Select **Add source**.
-   - Enter the URL: `https://dineshintry.github.io/plugin.kodi.jiotv/`
+   - Enter the URL: `https://intellijabhishek.github.io/plugin.kodi.jiotv/`
    - Name it `JioTV Direct Repo`.
 4. **Install from Zip**:
    - Go to **Settings** > **Add-ons**.
@@ -76,7 +76,7 @@ The documentation has been divided into focused guides to make it easier to read
 
 ### Alternative: Manual Installation (Via Zip)
 If you prefer to install the addon manually without the repository:
-1. **Download the Zip**: Go to the [Releases](https://github.com/dineshintry/plugin.kodi.jiotv/releases) page and download the `plugin.kodi.jiotv-x.x.x.zip` from the latest tag.
+1. **Download the Zip**: Go to the [Releases](https://github.com/IntelliJAbhishek/plugin.kodi.jiotv/releases) page and download the `plugin.kodi.jiotv-x.x.x.zip` from the latest tag.
 2. **Install in Kodi**:
    - Go to **Settings** > **Add-ons** > **Install from zip file**.
    - Locate and select the downloaded zip file.
@@ -105,6 +105,7 @@ Special thanks to the original creators and contributors:
 - **Botallen**
 - **kiranreddyrebel**
 - **fatGrizzly**
+- **dineshintry**
 
 ## Disclaimer
 This plugin is not officially commissioned/supported by Jio. The trademark "Jio" is registered by "Reliance Corporate IT Park Limited (RCITPL)".
