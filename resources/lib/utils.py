@@ -9,7 +9,6 @@ import base64
 import hashlib
 import time
 from functools import wraps
-from distutils.version import LooseVersion
 from codequick import Script
 from codequick.script import Settings
 from codequick.storage import PersistentDict
@@ -907,12 +906,30 @@ def getTokenParams():
     return {"jct": jct, "pxe": pxe, "st": "9p-O_v1qIyd6E-rf8_gEOQ"}
 
 
+def version_tuple(version):
+    """Parses a dotted version string into a tuple of ints for comparison.
+
+    Replaces distutils.version.LooseVersion, which was removed from the
+    stdlib in Python 3.12 (bundled with Kodi 22+).
+    """
+    parts = []
+    for part in str(version).split("."):
+        digits = ""
+        for ch in part:
+            if ch.isdigit():
+                digits += ch
+            else:
+                break
+        parts.append(int(digits) if digits else 0)
+    return tuple(parts)
+
+
 def check_addon(addonid, minVersion=False):
     """Checks if selected add-on is installed."""
     try:
         curVersion = Script.get_info("version", addonid)
         # Script.notify("version" , curVersion)
-        if minVersion and LooseVersion(curVersion) < LooseVersion(minVersion):
+        if minVersion and version_tuple(curVersion) < version_tuple(minVersion):
             Script.log(
                 "{addon} {curVersion} doesn't setisfy required version {minVersion}.".format(
                     addon=addonid, curVersion=curVersion, minVersion=minVersion
@@ -1088,7 +1105,7 @@ def _setup(m3uPath, epgUrl):
 
     # newer PVR Simple uses instance settings that can't yet be set via python api
     # so do a workaround where we leverage the migration when no instance settings found
-    if LooseVersion(addon.getAddonInfo("version")) >= LooseVersion("20.8.0"):
+    if version_tuple(addon.getAddonInfo("version")) >= version_tuple("20.8.0"):
         xbmcvfs.delete(instance_filepath)
 
         for file in os.listdir(addon_path):
